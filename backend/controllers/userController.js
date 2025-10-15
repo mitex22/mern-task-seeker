@@ -64,11 +64,6 @@ export const generateToken = (id) => {
 };
 
 export const getMe = asyncHandler(async (req, res) => {
-    const {_id, name, email} = await User.findById(req.user.id).select("-password");
-    
-    res.status(200).json({
-        _id,
-        name,
-        email
-    });
+
+    res.status(200).json(req.user);
 });
