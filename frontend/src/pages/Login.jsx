@@ -28,11 +28,12 @@ function Login() {
         }
 
         if (isSuccess || user) {
-            navigate('/')
+            navigate('/');
+            toast.success('Login Successful!');
         }
 
         dispatch(reset())
-    }, [user, isError, isSuccess, message, navigate, dispatch])
+    }, [user])
 
     const onChange = (e) => {
         setFormData((currentState) => ({
