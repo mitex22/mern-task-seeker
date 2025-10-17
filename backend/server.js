@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import goalRoutes from './routes/goalRoutes.js';
@@ -16,6 +17,17 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/goals', goalRoutes);
 app.use('/api/users', userRoutes);
+
+// serve frontend in production
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')));
+} else {
+    app.get('/', (req, res) => {
+        res.send('Please set to production...');
+    });
+}
 
 app.use(errorHandler);
 
