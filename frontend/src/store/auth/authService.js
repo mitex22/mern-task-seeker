@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = '/api/users/';
+const BASE = import.meta.env.VITE_API_URL || '';
+const API_URL = `${BASE.replace(/\/$/, '')}/api/users/`;
 
 const register = async (userData) => {
     const response = await axios.post(API_URL, userData);

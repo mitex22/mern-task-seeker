@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import goalRoutes from './routes/goalRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import errorHandler from './middleware/errorMiddleware.js';
@@ -14,6 +15,10 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(cors({
+    origin: process.env.CLIENT_URL || '*' // set CLIENT_URL in env for production, don't use '*' for locked-down prod
+}));
 
 app.use('/api/goals', goalRoutes);
 app.use('/api/users', userRoutes);

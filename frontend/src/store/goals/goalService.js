@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const API_URL = '/api/goals/'
+const BASE = import.meta.env.VITE_API_URL || '';
+const API_URL = `${BASE.replace(/\/$/, '')}/api/goals/`;
 
 // Create new goal
 const createGoal = async (goalData, token) => {
